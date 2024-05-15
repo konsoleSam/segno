@@ -64,7 +64,7 @@ def coverage(session):
     session.install('-Ur', 'tests/requirements.txt')
     session.install('.')
     html_output_dir = os.path.abspath(os.path.join(session.create_tmp(), 'html'))
-    session.run('pytest', '--cov=segno', '--cov-report=term', '--cov-report=html:%s' % html_output_dir)
+    session.run('pytest', '--cov=segno', '--cov-report=term', f'--cov-report=html:{html_output_dir}')
 
 
 @nox.session(python=_PY_DEFAULT_VERSION)
