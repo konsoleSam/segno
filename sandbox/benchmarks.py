@@ -50,20 +50,20 @@ if qrcode:
         qr = QRCode(error_correction=ERROR_CORRECT_M, box_size=10,
                     image_factory=SvgPathImage)
         qr.add_data(data, optimize=False)
-        qr.make_image().save(os.path.join(_output_dir(), 'qrcode_path_%s.svg' % data))
+        qr.make_image().save(os.path.join(_output_dir(), f'qrcode_path_{data}.svg'))
 
     def svg_qrcode_rects(data='QR Code Symbol'):
         """qrcode SVG rects"""
         qr = QRCode(error_correction=ERROR_CORRECT_M, box_size=10,
                     image_factory=SvgImage)
         qr.add_data(data, optimize=False)
-        qr.make_image().save(os.path.join(_output_dir(), 'qrcode_rects_%s.svg' % data))
+        qr.make_image().save(os.path.join(_output_dir(), f'qrcode_rects_{data}.svg'))
 
     def png_qrcode(data='QR Code Symbol'):
         """qrcode PNG 1-M"""
         qr = QRCode(error_correction=ERROR_CORRECT_M, box_size=10)
         qr.add_data(data, optimize=False)
-        qr.make_image().save(os.path.join(_output_dir(), 'qrcode_%s.png' % data),
+        qr.make_image().save(os.path.join(_output_dir(), f'qrcode_{data}.png'),
                              compress_level=_PNG_COMPRESSION_LEVEL)
 
 if qrcodegen:
@@ -111,12 +111,12 @@ def create30h_segno(data='QR Code Symbol'):
 
 def svg_segno(data='QR Code Symbol'):
     """Segno SVG"""
-    segno.make_qr(data, error='m', boost_error=False).save(os.path.join(_output_dir(), 'segno_%s.svg' % data), scale=10)
+    segno.make_qr(data, error='m', boost_error=False).save(os.path.join(_output_dir(), f'segno_{data}.svg'), scale=10)
 
 
 def png_segno(data='QR Code Symbol'):
     """Segno PNG 1-M"""
-    segno.make_qr(data, error='m', boost_error=False).save(os.path.join(_output_dir(), 'segno_%s.png' % data), scale=10,
+    segno.make_qr(data, error='m', boost_error=False).save(os.path.join(_output_dir(), f'segno_{data}.png'), scale=10,
                                                            compresslevel=_PNG_COMPRESSION_LEVEL)
 
 
@@ -127,33 +127,6 @@ def run_create_tests(which=None, number=200, table=None):
     if which:
         tests = filter(lambda n: n[len('create_'):] in which, tests)
     _run_tests(tests, number, table)
-
-
-# def run_create7q_tests(which=None, number=200, table=None):
-#     tests = ('create7q_qrcodegen',
-#              'create7q_qrcode',
-#              'create7q_segno',)
-#     if which:
-#         tests = filter(lambda n: n[len('create7q_'):] in which, tests)
-#     _run_tests(tests, number, table)
-
-
-# def run_create30h_tests(which=None, number=200, table=None):
-#     tests = ('create30h_qrcodegen',
-#              'create30h_qrcode',
-#              'create30h_segno',)
-#     if which:
-#         tests = filter(lambda n: n[len('createbig_'):] in which, tests)
-#     _run_tests(tests, number, table)
-
-
-# def run_svg_tests(which=None, number=200, table=None):
-#     tests = ('svg_qrcode_path', 'svg_qrcode_rects',
-#              'svg_segno',)
-
-#     if which:
-#         tests = filter(lambda n: n[len('svg_'):] in which, tests)
-#     _run_tests(tests, number, table)
 
 
 def run_png_tests(which=None, number=200, table=None):
@@ -169,7 +142,7 @@ def _run_tests(tests, number, table=None):
     # Author: Jonas Borgström <jonas@edgewall.com>
     # License: BSD (I'd think since Genshi uses BSD as well)
     for test in [t for t in tests if hasattr(sys.modules[__name__], t)]:
-        t = timeit.Timer(setup='from __main__ import %s;' % test, stmt='%s()' % test)
+        t = timeit.Timer(setup=f'from __main__ import {test};', stmt=f'{test}()')
         time = t.timeit(number=number) / number
         if time < 0.00001:
             result = '   (not installed?)'
@@ -184,9 +157,6 @@ def _run_tests(tests, number, table=None):
 if __name__ == '__main__':
     table = []
     run_create_tests(table=table)
-    #run_create7q_tests(table=table)
-    #run_create30h_tests(table=table)
-    #run_svg_tests(table=table)
     run_png_tests(table=table)
     with open(os.path.join(_output_dir(), 'results.csv'), 'w') as f:
         writer = csv.writer(f)
