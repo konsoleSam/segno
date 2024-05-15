@@ -74,7 +74,7 @@ def lint(session):
     """
     session.install('ruff', 'mypy')
     session.run('mypy', 'segno')
-    session.run('ruff', '.')
+    session.run('ruff', 'check', '.')
 
 
 @nox.session(python=_PY_DEFAULT_VERSION)
