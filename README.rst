@@ -70,15 +70,6 @@ Use ``pip`` to install segno from PyPI::
     $ pip install segno
 
 
-MacPorts
-^^^^^^^^
-
-Segno is also available at `MacPorts <https://www.macports.org/>`_
-(`MacPorts project page <https://ports.macports.org/port/py-segno/>`_)::
-
-    $ sudo port install py-segno
-
-
 conda-forge
 ^^^^^^^^^^^
 
@@ -94,14 +85,6 @@ Debian
 ::
 
     $ apt-get install python3-segno
-
-
-Debian 10 / Buster (backports)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-::
-
-    $ apt-get -t buster-backports install python3-segno
 
 
 Arch Linux
