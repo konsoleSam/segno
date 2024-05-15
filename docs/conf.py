@@ -55,6 +55,14 @@ html_theme_options = {
 
 html_static_path = ['_static']
 
+html_css_files = [
+    'css/custom.css',
+]
+
+html_js_files = [
+    'js/custom.js',
+]
+
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'segnodoc'
 
