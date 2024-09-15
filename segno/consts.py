@@ -106,6 +106,7 @@ GS_ALPHANUMERIC = 0x25
 FNC1_MAPPING = {
     'first': FNC1_FIRST,
     'second': FNC1_SECOND,
+    # 'uri': None
 }
 
 #
